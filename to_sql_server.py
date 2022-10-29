@@ -5,14 +5,13 @@ import pyodbc as odbc
 import time
 
 from sqlalchemy.engine import Engine
-# from sqlalchemy.engine import URL
+from sqlalchemy.engine import URL
 from tqdm import tqdm
 import sqlalchemy as sa
 
-DRIVER = 'SQL Server Native Client 11.0'
-# DRIVER = 'ODBC Driver 17 for SQL Server'
+# DRIVER = 'SQL Server Native Client 11.0'
+DRIVER = 'ODBC Driver 17 for SQL Server'
 HOST = 'localhost'
-SERVER = 'NB-R910JHBH\SA'
 PORT = 1433
 DATABASE = 'CitationNetwork'
 UID = 'sa'
@@ -49,16 +48,15 @@ def connect_to_base(host=HOST,
                     driver=DRIVER,
                     uid=UID,
                     pwd=PWD) -> Engine:
-    '''connect_url = URL.create(
+    connect_url = URL.create(
         'mssql+pyodbc',
         username=uid,
         password=pwd,
         host=host,
         port=port,
         database=database,
-        query=dict(driver=driver))'''
-    my_url = f"mssql+pyodbc://{SERVER}/{DATABASE}?driver={DRIVER}?Trusted_Connection=yes"
-    engine = sa.create_engine(my_url)
+        query=dict(driver=driver))
+    engine = sa.create_engine(connect_url)
     print("Connection done!")
     return engine
 
